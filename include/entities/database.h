@@ -21,33 +21,33 @@
 
 namespace arango {
 
-	namespace entities {
+  namespace entities {
 
-		static const std::string DATABASE_NAME_FIELD = "name";
+    static const std::string DATABASE_NAME_FIELD = "name";
 
-		/**
-		 * An ArangoDb database.
-		 */
-		class database : public entity {
-		public: 
+    /**
+     * An ArangoDb database.
+     */
+    class database : public entity {
+    public:
 
-			database() {}
-			explicit database(const web::json::value& value) : entity(value) {}
-			explicit database(const std::string& name) {
-				put(DATABASE_NAME_FIELD, name);
-			}
+      database() {}
+      explicit database(const web::json::value& value) : entity(value) {}
+      explicit database(const std::string& name) {
+        put(DATABASE_NAME_FIELD, name);
+      }
 
-			std::string get_name() const {
-				return get_string(DATABASE_NAME_FIELD);
-			}
+      std::string get_name() const {
+        return get_string(DATABASE_NAME_FIELD);
+      }
 
-			void set_name(const std::string& name) {
-				put(DATABASE_NAME_FIELD, name);
-			}
+      void set_name(const std::string& name) {
+        put(DATABASE_NAME_FIELD, name);
+      }
 
-		};
+    };
 
-	}
+  }
 
 }
 

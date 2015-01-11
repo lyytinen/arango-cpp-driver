@@ -20,31 +20,31 @@
 #include "entity.h"
 
 namespace arango {
-	namespace entities {
+  namespace entities {
 
-		static const std::string VERSION_FIELD = "version";
-		static const std::string SERVER_FIELD = "server";
+    static const std::string VERSION_FIELD = "version";
+    static const std::string SERVER_FIELD = "server";
 
-		/**
-		 * Entity class for the API version.
-		 */
-		class version : public entity {
-		public:
+    /**
+     * Entity class for the API version.
+     */
+    class version : public entity {
+    public:
 
-			version() {};
-			explicit version(const web::json::value& value) : entity(value) {}
+      version() {};
+      explicit version(const web::json::value& value) : entity(value) {}
 
-			std::string get_version() const {
-				return get_string(VERSION_FIELD);
-			}
+      std::string get_version() const {
+        return get_string(VERSION_FIELD);
+      }
 
-			std::string get_server() const {
-				return get_string(SERVER_FIELD);
-			};
+      std::string get_server() const {
+        return get_string(SERVER_FIELD);
+      };
 
-		};
+    };
 
-	}
+  }
 }
 
 #endif

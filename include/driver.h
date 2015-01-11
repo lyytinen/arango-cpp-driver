@@ -33,100 +33,100 @@ using arango::entities::version;
 
 namespace arango {
 
-	/**
-	 * Arango DB driver.
-	 */
-	class driver {
-	public:
+  /**
+   * Arango DB driver.
+   */
+  class driver {
+  public:
 
-		explicit driver(const configuration& config) :
-			config_(config), client_(to_string_t(config.get_base_url())) {}
+    explicit driver(const configuration& config) :
+      config_(config), client_(to_string_t(config.get_base_url())) {}
 
-		/* Database API : See ArangoDB reference, section 25.2, for documentation. */
+    /* Database API : See ArangoDB reference, section 25.2, for documentation. */
 
-		pplx::task<entity> create_database(const std::string& name) {
-			return create_database(database(name));
-		}
+    pplx::task<entity> create_database(const std::string& name) {
+      return create_database(database(name));
+    }
 
-		pplx::task<entity> create_database(const database& db) {
-			return http_post<entity>(client_, "_api/database", db.get_value());
-		}
+    pplx::task<entity> create_database(const database& db) {
+      return http_post<entity>(client_, "_api/database", db.get_value());
+    }
 
-		/* Document API : See ArangoDB reference, section 25.2, for documentation. */
+    /* Document API : See ArangoDB reference, section 25.2, for documentation. */
 
-		pplx::task<document> get_document(const std::string& collection, std::string key) {
-			return http_get<document>(client_, create_location("_api/document/" + collection + " / " + key));
-		}
+    pplx::task<document> get_document(const std::string& collection, std::string key) {
+      return http_get<document>(client_, create_location("_api/document/" + collection + " / " + key));
+    }
 
-		pplx::task<document> create_document(const std::string& collection, const document& d) {
-			return http_post<document>(client_, create_location("_api/document?collection=" + collection), d.get_value());
-		}
+    pplx::task<document> create_document(const std::string& collection, const document& d) {
+      return http_post<document>(client_, create_location("_api/document?collection=" + collection), d.get_value());
+    }
 
-		/* Collection API : See ArangoDB reference, section 25.8, for documentation. */
+    /* Collection API : See ArangoDB reference, section 25.8, for documentation. */
 
-		pplx::task<collection> get_collection(const std::string& name) {
-			return http_get<collection>(client_, create_location("_api/collection/" + name));
-		}
+    pplx::task<collection> get_collection(const std::string& name) {
+      return http_get<collection>(client_, create_location("_api/collection/" + name));
+    }
 
-		pplx::task<collection> get_collection_with_properties(const std::string& name) {
-			return http_get<collection>(client_, create_location("_api/collection/" + name + "/properties"));
-		}
+    pplx::task<collection> get_collection_with_properties(const std::string& name) {
+      return http_get<collection>(client_, create_location("_api/collection/" + name + "/properties"));
+    }
 
-		pplx::task<collection> get_collection_with_count(const std::string& name) {
-			return http_get<collection>(client_, create_location("_api/collection/" + name + "/count"));
-		}
+    pplx::task<collection> get_collection_with_count(const std::string& name) {
+      return http_get<collection>(client_, create_location("_api/collection/" + name + "/count"));
+    }
 
-		pplx::task<collection> create_collection(const std::string& name) {
-			return create_collection(collection(name));
-		}
+    pplx::task<collection> create_collection(const std::string& name) {
+      return create_collection(collection(name));
+    }
 
-		pplx::task<collection> create_collection(const collection& c) {
-			return http_post<collection>(client_, create_location("_api/collection"), c.get_value());
-		}
+    pplx::task<collection> create_collection(const collection& c) {
+      return http_post<collection>(client_, create_location("_api/collection"), c.get_value());
+    }
 
-		pplx::task<collection> delete_collection(const std::string& name) {
-			return http_delete<collection>(client_, create_location("_api/collection/" + name));
-		}
+    pplx::task<collection> delete_collection(const std::string& name) {
+      return http_delete<collection>(client_, create_location("_api/collection/" + name));
+    }
 
-		pplx::task<collection> truncate_collection(const std::string& name) {
-			return http_put<collection>(client_, create_location("_api/collection/" + name + "/truncate"));
-		}
+    pplx::task<collection> truncate_collection(const std::string& name) {
+      return http_put<collection>(client_, create_location("_api/collection/" + name + "/truncate"));
+    }
 
-		pplx::task<collection> load_collection(const std::string& name) {
-			return http_put<collection>(client_, create_location("_api/collection/" + name + "/load"));
-		}
+    pplx::task<collection> load_collection(const std::string& name) {
+      return http_put<collection>(client_, create_location("_api/collection/" + name + "/load"));
+    }
 
-		pplx::task<collection> unload_collection(const std::string& name) {
-			return http_put<collection>(client_, create_location("_api/collection/" + name + "/unload"));
-		}
+    pplx::task<collection> unload_collection(const std::string& name) {
+      return http_put<collection>(client_, create_location("_api/collection/" + name + "/unload"));
+    }
 
-		/* Admin API */
+    /* Admin API */
 
-		pplx::task<version> driver::get_version() {
-			return http_get<version>(client_, "_api/version");
-		}
+    pplx::task<version> driver::get_version() {
+      return http_get<version>(client_, "_api/version");
+    }
 
-		pplx::task<entity> driver::get_statistics() {
-			return http_get<entity>(client_, "_admin/statistics");
-		}
+    pplx::task<entity> driver::get_statistics() {
+      return http_get<entity>(client_, "_admin/statistics");
+    }
 
-		pplx::task<entity> driver::get_statistics_description() {
-			return http_get<entity>(client_, "_admin/statistics-description");
-		}
+    pplx::task<entity> driver::get_statistics_description() {
+      return http_get<entity>(client_, "_admin/statistics-description");
+    }
 
-	protected:
+  protected:
 
-		std::string create_location(const std::string& location) {
-			return "_db/" + config_.get_default_database() + "/" + location;
-		}
+    std::string create_location(const std::string& location) {
+      return "_db/" + config_.get_default_database() + "/" + location;
+    }
 
-		configuration config_;
+    configuration config_;
 
-		std::string base_url_;
-		
-		http_client client_;
+    std::string base_url_;
 
-	};
+    http_client client_;
+
+  };
 
 
 }

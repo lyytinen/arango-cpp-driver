@@ -21,47 +21,47 @@
 
 namespace arango {
 
-	class configuration {
-	public:
+  class configuration {
+  public:
 
-		std::string get_host() const {
-			return host_;
-		}
+    std::string get_host() const {
+      return host_;
+    }
 
-		configuration& set_host(const std::string& host) {
-			host_ = host;
-			return *this;
-		}
+    configuration& set_host(const std::string& host) {
+      host_ = host;
+      return *this;
+    }
 
-		std::string get_port() const {
-			return port_;
-		}
+    std::string get_port() const {
+      return port_;
+    }
 
-		configuration& set_port(const std::string& port) {
-			port_ = port;
-			return *this;
-		}
+    configuration& set_port(const std::string& port) {
+      port_ = port;
+      return *this;
+    }
 
-		configuration& set_default_database(const std::string& database) {
-			default_database_ = database;
-			return *this;
-		}
+    configuration& set_default_database(const std::string& database) {
+      default_database_ = database;
+      return *this;
+    }
 
-		std::string get_default_database() const {
-			return default_database_;
-		}
+    std::string get_default_database() const {
+      return default_database_;
+    }
 
-		std::string get_base_url() const {
-			return "http://" + get_host() + ":" + get_port() + "/";
-		}
+    std::string get_base_url() const {
+      return "http://" + get_host() + ":" + get_port() + "/";
+    }
 
-	private:
+  private:
 
-		std::string host_;
-		std::string port_;
-		std::string default_database_;
+    std::string host_;
+    std::string port_;
+    std::string default_database_;
 
-	};
+  };
 
 }
 

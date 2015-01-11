@@ -21,36 +21,36 @@
 
 namespace arango {
 
-	namespace entities {
+  namespace entities {
 
-		static const std::string DOCUMENT_HANDLE_FIELD = "_id";
-		static const std::string DOCUMENT_KEY_FIELD = "_key";
-		static const std::string DOCUMENT_REVISION_FIELD = "_rev";
+    static const std::string DOCUMENT_HANDLE_FIELD = "_id";
+    static const std::string DOCUMENT_KEY_FIELD = "_key";
+    static const std::string DOCUMENT_REVISION_FIELD = "_rev";
 
-		/**
-		 * An ArangoDB document.
-		 */
-		class document : public entity {
-		public:
+    /**
+     * An ArangoDB document.
+     */
+    class document : public entity {
+    public:
 
-			document() {}
-			explicit document(const web::json::value& value) : entity(value) {}
+      document() {}
+      explicit document(const web::json::value& value) : entity(value) {}
 
-			std::string get_id() const {
-				return get_string(DOCUMENT_HANDLE_FIELD);
-			}
+      std::string get_id() const {
+        return get_string(DOCUMENT_HANDLE_FIELD);
+      }
 
-			std::string get_key() const {
-				return get_string(DOCUMENT_KEY_FIELD);
-			}
+      std::string get_key() const {
+        return get_string(DOCUMENT_KEY_FIELD);
+      }
 
-			std::string get_revision() const {
-				return get_string(DOCUMENT_REVISION_FIELD);
-			}
+      std::string get_revision() const {
+        return get_string(DOCUMENT_REVISION_FIELD);
+      }
 
-		};
+    };
 
-	}
+  }
 
 }
 

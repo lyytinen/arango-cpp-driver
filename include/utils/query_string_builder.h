@@ -22,49 +22,49 @@
 
 namespace arango {
 
-	/**
-	 * A helper class for constructing query strings.
-	 */
-	class query_string_builder {
-	public:
+  /**
+   * A helper class for constructing query strings.
+   */
+  class query_string_builder {
+  public:
 
-		query_string_builder& append(const std::string& key, const std::string& value) {
-			if (is_set(key)) {
-				parameters_[key].push_back(value);
-			}
-			else {
-				parameters_[key] = std::vector<std::string>(1, value);
-			}
-			return *this;
-		}
+    query_string_builder& append(const std::string& key, const std::string& value) {
+      if (is_set(key)) {
+        parameters_[key].push_back(value);
+      }
+      else {
+        parameters_[key] = std::vector<std::string>(1, value);
+      }
+      return *this;
+    }
 
-		std::string build() const {
-			std::string query_string;
-			for (auto i = parameters_.begin(); i != parameters_.end(); i++) {
-				std::string key = url_encode(i->first);
-				for (auto j = i->second.begin(); j != i->second.end(); j++) {
-					if (!query_string.empty()) {
-						query_string += "&";
-					}
-					query_string += key + "=" + url_encode(*j);
-				}
-			}
-			return query_string;
-		}
+    std::string build() const {
+      std::string query_string;
+      for (auto i = parameters_.begin(); i != parameters_.end(); i++) {
+        std::string key = url_encode(i->first);
+        for (auto j = i->second.begin(); j != i->second.end(); j++) {
+          if (!query_string.empty()) {
+            query_string += "&";
+          }
+          query_string += key + "=" + url_encode(*j);
+        }
+      }
+      return query_string;
+    }
 
-	private:
+  private:
 
-		std::string url_encode(const std::string& value) const {
-			return to_utf8string(uri::encode_uri(to_string_t(value)));
-		}
+    std::string url_encode(const std::string& value) const {
+      return to_utf8string(uri::encode_uri(to_string_t(value)));
+    }
 
-		bool is_set(const std::string& key) {
-			return parameters_.find(key) != parameters_.end();
-		}
+    bool is_set(const std::string& key) {
+      return parameters_.find(key) != parameters_.end();
+    }
 
-		std::map<std::string, std::vector<std::string>> parameters_;
+    std::map<std::string, std::vector<std::string>> parameters_;
 
-	};
+  };
 }
 
 #endif
