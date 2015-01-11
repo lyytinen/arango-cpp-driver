@@ -1,8 +1,8 @@
 # arango-cpp-driver
-This header-only C++11 library provides an asynchronous cross-platform interface for ArangoDB.
+This header-only C++11 library provides an asynchronous cross-platform interface for [ArangoDB](https://www.arangodb.com).
 
 The library depends on the following 3rd party components:
 
-* C++ Rest SDK v.2.4.0 (Casablanca) which ships with the Parallel Patterns Library (PPL).
-* Boost v.1.55
-* OpenSSL v.1.0.0
+* [C++ Rest SDK](https://casablanca.codeplex.com) v.2.4.0 (ships with the [Parallel Patterns Library (PPL)](http://msdn.microsoft.com/en-us/library/dd492418.aspx)).
+* [Boost](http://www.boost.org) v.1.55
+* [OpenSSL](https://www.openssl.org/) v.1.0.0
