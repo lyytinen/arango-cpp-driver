@@ -55,45 +55,49 @@ namespace arango {
 		/* Document API : See ArangoDB reference, section 25.2, for documentation. */
 
 		pplx::task<document> get_document(const std::string& collection, std::string key) {
-			return http_get<document>(client_, "_api/document/" + collection + " / " + key);
+			return http_get<document>(client_, create_location("_api/document/" + collection + " / " + key));
 		}
 
 		pplx::task<document> create_document(const std::string& collection, const document& d) {
-			return http_post<document>(client_, "_api/document?collection=" + collection, d.get_value());
+			return http_post<document>(client_, create_location("_api/document?collection=" + collection), d.get_value());
 		}
 
 		/* Collection API : See ArangoDB reference, section 25.8, for documentation. */
 
 		pplx::task<collection> get_collection(const std::string& name) {
-			return http_get<collection>(client_, "_api/collection/" + name);
+			return http_get<collection>(client_, create_location("_api/collection/" + name));
 		}
 
 		pplx::task<collection> get_collection_with_properties(const std::string& name) {
-			return http_get<collection>(client_, "_api/collection/" + name + "/properties");
+			return http_get<collection>(client_, create_location("_api/collection/" + name + "/properties"));
 		}
 
 		pplx::task<collection> get_collection_with_count(const std::string& name) {
-			return http_get<collection>(client_, "_api/collection/" + name + "/count");
+			return http_get<collection>(client_, create_location("_api/collection/" + name + "/count"));
+		}
+
+		pplx::task<collection> create_collection(const std::string& name) {
+			return create_collection(collection(name));
 		}
 
 		pplx::task<collection> create_collection(const collection& c) {
-			return http_post<collection>(client_, "_api/collection", c.get_value());
+			return http_post<collection>(client_, create_location("_api/collection"), c.get_value());
 		}
 
 		pplx::task<collection> delete_collection(const std::string& name) {
-			return http_delete<collection>(client_, "_api/collection/" + name);
+			return http_delete<collection>(client_, create_location("_api/collection/" + name));
 		}
 
 		pplx::task<collection> truncate_collection(const std::string& name) {
-			return http_put<collection>(client_, "_api/collection/" + name + "/truncate");
+			return http_put<collection>(client_, create_location("_api/collection/" + name + "/truncate"));
 		}
 
 		pplx::task<collection> load_collection(const std::string& name) {
-			return http_put<collection>(client_, "_api/collection/" + name + "/load");
+			return http_put<collection>(client_, create_location("_api/collection/" + name + "/load"));
 		}
 
 		pplx::task<collection> unload_collection(const std::string& name) {
-			return http_put<collection>(client_, "_api/collection/" + name + "/unload");
+			return http_put<collection>(client_, create_location("_api/collection/" + name + "/unload"));
 		}
 
 		/* Admin API */
@@ -111,6 +115,10 @@ namespace arango {
 		}
 
 	protected:
+
+		std::string create_location(const std::string& location) {
+			return "_db/" + config_.get_default_database() + "/" + location;
+		}
 
 		configuration config_;
 

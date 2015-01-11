@@ -59,16 +59,26 @@ int main(int argc, char* argv[]) {
 		configuration()
 		.set_host("localhost")
 		.set_port("8529")
-		.set_default_database("_system");
+		.set_default_database("weather");
 
 	driver arango_client(config);
 
-	arango_client.create_database("weather").then([](const entity& result) {
-		if (result.is_error() && result.get_error_num().get() != 1207) {
-			std::cerr << "Failed to create database: " + result.get_error_message().get() << std::endl;
-			std::exit(-1);
-		}
-	}).wait();
+	arango_client
+		.create_database("weather")
+		.then([&](const entity& result) -> collection {
+			if (result.is_error() && result.get_error_num().get() != 1207) {
+				std::cerr << "Failed to create database: " + result.get_error_message().get() << std::endl;
+				std::exit(-1);
+			}
+			else {
+				return arango_client.create_collection("snowfall").get();
+			}
+		}).then([](const collection& result) {
+			if (result.is_error() && result.get_error_num().get() != 1207) {
+				std::cerr << "Failed to create collection: " + result.get_error_message().get() << std::endl;
+				std::exit(-1);
+			}
+		}).wait();
 
 	std::string query_string =
 		query_string_builder()

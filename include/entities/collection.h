@@ -64,6 +64,9 @@ namespace arango {
 
 			collection() {}
 			explicit collection(const web::json::value& value) : entity(value) {}
+			explicit collection(const std::string& name) {
+				put(COLLECTION_NAME_FIELD, name);
+			}
 
 			int64_t get_id() const {
 				return get_int64(COLLECTION_ID_FIELD);
