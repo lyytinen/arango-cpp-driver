@@ -25,9 +25,9 @@ using arango::configuration;
 using arango::driver;
 using arango::query_string_builder;
 using arango::http_get;
-using arango::entity::document;
-using arango::entity::version;
-using arango::entity::entity;
+using arango::entities::document;
+using arango::entities::version;
+using arango::entities::entity;
 
 /**
  * Transforms the NCDC fragment into a measurement document.

@@ -17,11 +17,11 @@
 #ifndef ARANGO_CPP_COLLECTION_H_
 #define ARANGO_CPP_COLLECTION_H_
 
-#include "entity/entity.h"
+#include "entity.h"
 
 namespace arango {
 
-	namespace entity {
+	namespace entities {
 
 		static const std::string COLLECTION_ID_FIELD = "id";
 		static const std::string COLLECTION_NAME_FIELD = "name";

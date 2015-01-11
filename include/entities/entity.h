@@ -26,7 +26,7 @@ using utility::conversions::to_utf8string;
 #include "common.h"
 
 namespace arango {
-	namespace entity {
+	namespace entities {
 
 		static std::string ERROR_FIELD = "error";
 		static std::string ERROR_NUM_FIELD = "errorNum";

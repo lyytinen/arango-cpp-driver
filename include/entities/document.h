@@ -17,11 +17,11 @@
 #ifndef ARANGO_CPP_DOCUMENT_H_
 #define ARANGO_CPP_DOCUMENT_H_
 
-#include "entity/entity.h"
+#include "entity.h"
 
 namespace arango {
 
-	namespace entity {
+	namespace entities {
 
 		static const std::string DOCUMENT_HANDLE_FIELD = "_id";
 		static const std::string DOCUMENT_KEY_FIELD = "_key";

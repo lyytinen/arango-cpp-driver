@@ -21,13 +21,13 @@
 #include "configuration.h"
 #include "utils/http_utils.h"
 
-#include "entity/version.h"
-#include "entity/collection.h"
-#include "entity/document.h"
-using arango::entity::entity;
-using arango::entity::version;
-using arango::entity::collection;
-using arango::entity::document;
+#include "entities/version.h"
+#include "entities/collection.h"
+#include "entities/document.h"
+using arango::entities::entity;
+using arango::entities::version;
+using arango::entities::collection;
+using arango::entities::document;
 
 namespace arango {
 
@@ -90,12 +90,12 @@ namespace arango {
 			return http_get<version>(client_, "_api/version");
 		}
 
-		pplx::task<entity::entity> driver::get_statistics() {
-			return http_get<entity::entity>(client_, "_admin/statistics");
+		pplx::task<entity> driver::get_statistics() {
+			return http_get<entity>(client_, "_admin/statistics");
 		}
 
-		pplx::task<entity::entity> driver::get_statistics_description() {
-			return http_get<entity::entity>(client_, "_admin/statistics-description");
+		pplx::task<entity> driver::get_statistics_description() {
+			return http_get<entity>(client_, "_admin/statistics-description");
 		}
 
 	protected:
