@@ -21,13 +21,15 @@
 #include "configuration.h"
 #include "utils/http_utils.h"
 
-#include "entities/version.h"
+#include "entities/database.h"
 #include "entities/collection.h"
 #include "entities/document.h"
+#include "entities/version.h"
 using arango::entities::entity;
-using arango::entities::version;
+using arango::entities::database;
 using arango::entities::collection;
 using arango::entities::document;
+using arango::entities::version;
 
 namespace arango {
 
@@ -39,6 +41,16 @@ namespace arango {
 
 		explicit driver(const configuration& config) :
 			config_(config), client_(to_string_t(config.get_base_url())) {}
+
+		/* Database API : See ArangoDB reference, section 25.2, for documentation. */
+
+		pplx::task<entity> create_database(const std::string& name) {
+			return create_database(database(name));
+		}
+
+		pplx::task<entity> create_database(const database& db) {
+			return http_post<entity>(client_, "_api/database", db.get_value());
+		}
 
 		/* Document API : See ArangoDB reference, section 25.2, for documentation. */
 

@@ -63,6 +63,13 @@ int main(int argc, char* argv[]) {
 
 	driver arango_client(config);
 
+	arango_client.create_database("weather").then([](const entity& result) {
+		if (result.is_error() && result.get_error_num().get() != 1207) {
+			std::cerr << "Failed to create database: " + result.get_error_message().get() << std::endl;
+			std::exit(-1);
+		}
+	}).wait();
+
 	std::string query_string =
 		query_string_builder()
 			.append("datasetid", "GHCND")

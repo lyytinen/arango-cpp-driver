@@ -118,11 +118,11 @@ namespace arango {
 				put(ERROR_FIELD, error);
 			}
 
-			boost::optional<std::string> get_error_num() const {
-				return get_optional_string(ERROR_NUM_FIELD);
+			boost::optional<std::int32_t> get_error_num() const {
+				return get_optional_int32(ERROR_NUM_FIELD);
 			}
 
-			void set_error_num(std::string error_num) {
+			void set_error_num(std::int32_t error_num) {
 				put(ERROR_NUM_FIELD, error_num);
 			}
 

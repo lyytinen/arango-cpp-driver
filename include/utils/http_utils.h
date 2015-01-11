@@ -43,7 +43,7 @@ namespace arango {
 		catch (http_exception& e) {
 			T error;
 			error.set_error(true);
-			error.set_error_num("0");
+			error.set_error_num(0);
 			error.set_error_message(std::string(e.what()));
 			return pplx::task_from_result(error);
 		}		
