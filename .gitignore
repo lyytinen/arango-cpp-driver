@@ -1,0 +1,11 @@
+*.opensdf
+*.sdf
+*.sln
+*.v12.suo
+*.vcxproj
+*.vcxproj.*
+/build
+/packages
+/tests
+packages.config
+CMakeLists.txt
