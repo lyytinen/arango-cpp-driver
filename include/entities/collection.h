@@ -158,7 +158,7 @@ namespace arango {
             value_.at(key).as_array().begin(),
             value_.at(key).as_array().end(),
             shard_keys.begin(),
-            [](const web::json::value& val) { return FROM_CBSTR(val.as_string()); });
+            [](const web::json::value& val) { return to_utf8string(val.as_string()); });
         }
         else {
           return boost::none;

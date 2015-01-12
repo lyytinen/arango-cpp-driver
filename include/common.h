@@ -21,21 +21,10 @@
 #include <memory>
 #include <map>
 #include <vector>
+#include <numeric>
 
 #ifdef _WIN32
 #define _UTF16_STRINGS
-#endif
-
-#ifdef _UTF16_STRINGS
-#define TO_CBSTR(value) utility::conversions::to_string_t(value)
-#else
-#define TO_CBSTR(value) value;
-#endif
-
-#ifdef _UTF16_STRINGS
-#define FROM_CBSTR(value) utility::conversions::to_utf8string(value);
-#else
-#define FROM_CBSTR(value) value
 #endif
 
 #endif

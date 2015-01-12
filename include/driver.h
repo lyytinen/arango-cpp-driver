@@ -24,11 +24,13 @@
 #include "entities/database.h"
 #include "entities/collection.h"
 #include "entities/document.h"
+#include "entities/cursor.h"
 #include "entities/version.h"
 using arango::entities::entity;
 using arango::entities::database;
 using arango::entities::collection;
 using arango::entities::document;
+using arango::entities::cursor;
 using arango::entities::version;
 
 namespace arango {
@@ -60,6 +62,31 @@ namespace arango {
 
     pplx::task<document> create_document(const std::string& collection, const document& d) {
       return http_post<document>(client_, create_location("_api/document?collection=" + collection), d.get_value());
+    }
+
+    /* Cursor API : See ArangoDB reference, section 25.4, for documentation. */
+
+    pplx::task<cursor> execute_query(
+      const std::string& query,
+      boost::optional<bool> count = boost::none,
+      boost::optional<int32_t> batch_size = boost::none) {
+      
+      entity query_object;
+      query_object.put("query", query);
+      if (count != boost::none) query_object.put("count", count.get());
+      if (batch_size != boost::none) query_object.put("batchSize", batch_size.get());
+
+      return http_post<cursor>(client_, create_location("_api/cursor"), query_object.get_value());
+    }
+
+    pplx::task<cursor> follow_cursor(const std::string& id) {
+      return http_put<cursor>(client_, create_location("_api/cursor/" + id));
+    }
+
+    pplx::task<bool> delete_cursor(const std::string& id) {
+      client_.request(methods::DEL, to_string_t(create_location("_api/cursor/" + id))).then([](const http_response& r) {
+        return concurrency::task_from_result<bool>(r.status_code() == 202);
+      });
     }
 
     /* Collection API : See ArangoDB reference, section 25.8, for documentation. */

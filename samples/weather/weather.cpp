@@ -74,6 +74,25 @@ int main(int argc, char* argv[]) {
 
   populate_database(arango_client, ncdc_client);
 
+  // (3) Query snowfall data from the database and calculate the amount of
+  // snowfall in 2014.
+
+  arango_client.execute_query("FOR m IN snowfall RETURN m").then([](const cursor& c) {
+    if (c.is_error()) {
+      die("Failed to query measurements from the 'snowfall' collection");
+    }
+    else {
+      std::vector<document> measurements = c.get_result();
+      int snowfall =  std::accumulate(
+        measurements.begin(), measurements.end(), 0,
+        [] (int total, const document& d) { return total + d.get_int32("snowfall"); });
+
+      std::cout
+        << "The accumulated snowfall in Anchorage, Alaska in 2014 was " + boost::lexical_cast<string>(snowfall) + " cm."
+        << std::endl;
+    }
+  }).wait();
+
   return 0;
 }
 
