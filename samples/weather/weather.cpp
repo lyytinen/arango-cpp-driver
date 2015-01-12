@@ -35,6 +35,14 @@ void die(const string& error_message);
 
 /**
  * The main entry-point.
+ *
+ * The application creates a new ArangoDB database and populates it by loading some
+ * weather observation data from the NCDC web service. To access the service you
+ * need to request for an access token from their website and pass it as an argument
+ * for this application:
+ *
+ * http://www.ncdc.noaa.gov/cdo-web/webservices/v2
+ *
  */
 int main(int argc, char* argv[]) {
 
@@ -114,9 +122,7 @@ void initialize_database(driver& arango_client) {
 }
 
 /**
- * Populates the database by extracting weather data from the NCDC web service:
- *
- * http://www.ncdc.noaa.gov/cdo-web/webservices/v2
+ * Populates the database by extracting weather data from the NCDC web service.
  *
  * In this case we want to know how much it snows in Alaska and extract daily snowfall
  * data for the Anchorage international airport between for the year 2014. 
